@@ -165,8 +165,9 @@ class VtDashboard_WidgetData_View extends Vtiger_IndexAjax_View {
         $reportModel->setModule('Reports');
         $reportData = $reportModel->getReportData($pagingModel);
 
-        $html = isset($reportData['data']) ? $reportData['data'] : '';
+        $rows = isset($reportData['data']) ? $reportData['data'] : array();
         $count = isset($reportData['count']) ? $reportData['count'] : 0;
+        $html = $this->buildTableHtml($rows);
 
         return array(
             'kind'    => 'table',
@@ -175,5 +176,37 @@ class VtDashboard_WidgetData_View extends Vtiger_IndexAjax_View {
             'title'   => $title,
             'hasData' => !empty($html),
         );
+    }
+
+    /**
+     * Builds an HTML table from report data rows.
+     * Report data is an array of rows, each row an associative array keyed by
+     * the column label; values are already display-formatted (may contain HTML).
+     * @param <Array> $rows
+     * @return <String>
+     */
+    protected function buildTableHtml($rows) {
+        if (empty($rows) || !is_array($rows) || empty($rows[0]) || !is_array($rows[0])) {
+            return '';
+        }
+
+        $headers = array_keys($rows[0]);
+
+        $html = '<table class="table table-bordered report-widget-table"><thead><tr>';
+        foreach ($headers as $header) {
+            $html .= '<th nowrap>' . $header . '</th>';
+        }
+        $html .= '</tr></thead><tbody>';
+
+        foreach ($rows as $row) {
+            $html .= '<tr>';
+            foreach ($row as $value) {
+                $html .= '<td>' . $value . '</td>';
+            }
+            $html .= '</tr>';
+        }
+        $html .= '</tbody></table>';
+
+        return $html;
     }
 }

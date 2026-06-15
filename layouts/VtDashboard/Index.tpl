@@ -39,7 +39,11 @@
     .widget-state { color: #a0aec0; font-size: 13px; padding: 30px 0; text-align: center; width: 100%; }
     .widget-state .fa { margin-right: 6px; }
 
-    .report-table-scroll { overflow-x: auto; }
+    .report-table-scroll { overflow-x: auto; max-height: 420px; overflow-y: auto; }
+    .report-widget-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .report-widget-table th, .report-widget-table td { border: 1px solid #e2e8f0; padding: 6px 10px; text-align: left; vertical-align: top; }
+    .report-widget-table thead th { background: #f7fafc; font-weight: 600; color: #2d3748; position: sticky; top: 0; }
+    .report-widget-table tbody tr:nth-child(even) { background: #fafbfc; }
     .empty-board { color: #a0aec0; font-size: 15px; padding: 60px 0; text-align: center; width: 100%; }
 </style>
 

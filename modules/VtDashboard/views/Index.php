@@ -8,7 +8,7 @@
  * All Rights Reserved.
  *******************************************************************************/
 
-class VtDashboard_Index_View extends Vtiger_View_Controller {
+class VtDashboard_Index_View extends Vtiger_Index_View {
 
     // 1. Tell Vtiger to include the header bar and sidebars
     public function preProcess(Vtiger_Request $request, $display = true) {
