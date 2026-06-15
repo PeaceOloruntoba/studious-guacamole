@@ -32,11 +32,15 @@ class VtDashboard_WidgetData_View extends Vtiger_IndexAjax_View {
         $response = new Vtiger_Response();
         $reportId = $request->get('reportid');
 
+        // Buffer report generation so any stray PHP notices/warnings emitted by
+        // the Reports engine cannot corrupt the JSON response body.
+        ob_start();
         try {
             $result = $this->getWidgetData($reportId);
         } catch (Exception $e) {
             $result = array('kind' => 'error', 'message' => $e->getMessage());
         }
+        ob_end_clean();
 
         $response->setResult($result);
         $response->emit();

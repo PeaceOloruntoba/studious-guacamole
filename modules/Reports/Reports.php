@@ -265,6 +265,9 @@ class Reports extends CRMEntity{
 					while($resultrow = $adb->fetch_array($reportblocks)) {
 						$blockid = $resultrow['blockid'];
 						$blocklabel = $resultrow['blocklabel'];
+						if(!isset($this->module_id[$resultrow['tabid']])) {
+							continue;
+						}
 						$module = $this->module_id[$resultrow['tabid']];
 
 						if(in_array($blocklabel, $restricted_blocks) ||
@@ -305,6 +308,9 @@ class Reports extends CRMEntity{
 				);
 				if($adb->num_rows($relatedmodules)) {
 					while($resultrow = $adb->fetch_array($relatedmodules)) {
+						if(!isset($this->module_id[$resultrow['tabid']])) {
+							continue;
+						}
 						$module = $this->module_id[$resultrow['tabid']];
 
 						if(!isset($this->related_modules[$module])) {
